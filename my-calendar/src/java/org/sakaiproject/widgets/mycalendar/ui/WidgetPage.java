@@ -73,24 +73,17 @@ public class WidgetPage extends WebPage {
 		// Tool additions (at end so we can override if required)
 		response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
 
-		// for datepicker
-		response.render(new PriorityHeaderItem(
-				JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference())));
-		response.render(CssHeaderItem.forUrl(String.format("/my-calendar/styles/jquery-ui.min.css?version=%s", version)));
-		response.render(JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/jquery-ui.min.js?version=%s", version)));
-		response.render(JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/moment.js?version=%s", version)));
-		response.render(
-				JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/moment-timezone-with-data.js?version=%s", version)));
-
-		// templating
-		response.render(JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/jsrender.min.js?version=%s", version)));
-
-		// i18n
-		response.render(
-				JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/jquery.i18n.properties.min.js?version=%s", version)));
-
-		// widget specific styles
+		// render jQuery and the Wicket event library
+		// Both must be priority so they are emitted into the head
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forUrl(String.format("/library/webjars/jquery/1.11.3/jquery.min.js?version=%s", version))));
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/wicket/wicket-event-jquery.min.js?version=%s", version))));
+		
+		// additional styles (datepicker, this widget etc)
+		response.render(CssHeaderItem.forUrl(String.format("/library/webjars/jquery-ui/1.11.3/jquery-ui.min.css?version=%s", version)));
 		response.render(CssHeaderItem.forUrl(String.format("/my-calendar/styles/widget-styles.css?version=%s", version)));
+		
+		// NOTE: All libraries apart from jQuery and Wicket Event must be rendered inline with the application. See WidgetPage.html.
+		
 	}
 
 	/**

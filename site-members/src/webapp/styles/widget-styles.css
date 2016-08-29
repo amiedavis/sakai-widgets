@@ -8,7 +8,32 @@
 	border-radius: 50%;
 	position: relative;
 	margin-top: 0;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-left: 0;
 }
+
+.my-connections-cell {
+	text-align:center;
+	width: 160px;
+	padding-top: 20px;
+}
+
+div.Mrphs-sakai-widget-site-members>nav.Mrphs-toolTitleNav {
+	border: 1px solid #e0e0e0;
+	background-color: #f0f0f0;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+div.Mrphs-sakai-widget-site-members>nav.Mrphs-toolTitleNav>h2.Mrphs-toolTitleNav__title {
+	color: #333;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+div.Mrphs-sakai-widget-site-members>div.Mrphs-toolBody--sakai-widget-site-members>h3 {
+	text-align: center;
+}
+
+div.Mrphs-sakai-widget-site-members>div.Mrphs-toolBody--sakai-widget-site-members>div>table {
+	margin: 0px auto;
+}
+

@@ -122,12 +122,11 @@ public class WidgetPage extends WebPage {
 	@Override
 	public void renderHead(final IHeaderResponse response) {
 		super.renderHead(response);
+		
+		final String version = this.serverConfigurationService.getString("portal.cdn.version", "");
 
 		// get the Sakai skin header fragment from the request attribute
 		final HttpServletRequest request = (HttpServletRequest) getRequest().getContainerRequest();
-
-		response.render(new PriorityHeaderItem(
-				JavaScriptHeaderItem.forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference())));
 
 		response.render(StringHeaderItem.forString((String) request.getAttribute("sakai.html.head")));
 		response.render(OnLoadHeaderItem.forScript("setMainFrameHeight( window.name )"));
@@ -136,9 +135,14 @@ public class WidgetPage extends WebPage {
 		response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
 
 		// widget specific styles
-		final String version = this.serverConfigurationService.getString("portal.cdn.version", "");
 		response.render(CssHeaderItem.forUrl(String.format("/site-members/styles/widget-styles.css?version=%s", version)));
-
+		
+		// render jQuery and the Wicket event library
+		// Both must be priority so they are emitted into the head
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forUrl(String.format("/library/webjars/jquery/1.11.3/jquery.min.js?version=%s", version))));
+		response.render(new PriorityHeaderItem(JavaScriptHeaderItem.forUrl(String.format("/my-calendar/scripts/wicket/wicket-event-jquery.min.js?version=%s", version))));
+		
+		// NOTE: All libraries apart from jQuery and Wicket Event must be rendered inline with the application. See WidgetPage.html.
 	}
 
 	/**

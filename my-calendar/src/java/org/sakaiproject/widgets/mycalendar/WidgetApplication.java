@@ -1,6 +1,8 @@
 package org.sakaiproject.widgets.mycalendar;
 
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.sakaiproject.widgets.mycalendar.ui.WidgetPage;
 
@@ -36,6 +38,12 @@ public class WidgetApplication extends WebApplication {
 		getMarkupSettings().setStripWicketTags(true);
 		getMarkupSettings().setStripComments(true);
 		getMarkupSettings().setCompressWhitespace(true);
+		
+		// Suppress internal javascript references
+		// When rendered inline, the URLs these generate are incorrect - the context path is /page/ instead of the webapp name.
+		// However it is cleaner if we just handle this manually in the page
+		getJavaScriptLibrarySettings().setJQueryReference(new UrlResourceReference(Url.parse("/my-calendar/scripts/wicket/empty.js")));
+		getJavaScriptLibrarySettings().setWicketEventReference(new UrlResourceReference(Url.parse("/my-calendar/scripts/wicket/empty.js")));
 
 		// to put this app into deployment mode, see web.xml
 	}

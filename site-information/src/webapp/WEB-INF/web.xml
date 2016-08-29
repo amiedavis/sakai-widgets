@@ -3,20 +3,20 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 version="2.5">
 
-	<display-name>sakai.widget.site.members</display-name>
+	<display-name>sakai.widget.site.information</display-name>
 
 	<!--  This application's servlet class -->
 	<servlet>
-		<servlet-name>sakai.widget.site.members</servlet-name>
+		<servlet-name>sakai.widget.site.information</servlet-name>
 	    <servlet-class>org.apache.wicket.protocol.http.WicketServlet</servlet-class>
 	    <init-param>
 	      	<param-name>applicationClassName</param-name>
-	      	<param-value>org.sakaiproject.widgets.sitemembers.WidgetApplication</param-value>
+	      	<param-value>org.sakaiproject.widgets.siteinformation.WidgetApplication</param-value>
 	    </init-param>
 		<load-on-startup>1</load-on-startup>
   	</servlet>
     <servlet-mapping>
-    	<servlet-name>sakai.widget.site.members</servlet-name>
+    	<servlet-name>sakai.widget.site.information</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
@@ -65,7 +65,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sakai.request</filter-name>
-		<servlet-name>sakai.widget.site.members</servlet-name>
+		<servlet-name>sakai.widget.site.information</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
